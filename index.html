@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Speech Enhancement with Integration of Neural Homomorphic Synthesis and Spectral Masking</title>
+    <title>Phase Estimation for Speech Enhancement with Neural Homomorphic Synthesis</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/user.css">
 </head>
@@ -11,34 +11,52 @@
 <body>
     <div class="container">
         <header>
-            <h1>Speech Enhancement with Integration of Neural Homomorphic Synthesis and Spectral Masking <small class="color_fade">Online Supplement</small>
+            <h1>Phase Estimation for Speech Enhancement with Neural Homomorphic Synthesis <small
+                    class="color_fade">Online Supplement</small>
             </h1>
         </header>
 
         <h4> Authors </h4>
         <div style="font-size: medium;"> Wenbin Jiang, Kai Yu </div>
         <h4> Abstract </h4>
-        <div style="font-size: medium;"> 
-            Speech enhancement refers to suppressing the background noise to improve the perceptual quality and intelligibility of the observed noisy speech. Recently, speech enhancement algorithms based on deep neural networks (DNNs) have replaced traditional algorithms based on statistical signal processing and become the mainstream in the research field. However, most DNN-based speech enhancement methods commonly operate on the frequency domain and do not use the speech production model, which makes the models prone to under-suppress the noise or over-suppress the speech. To address the shortcoming, we propose a novel speech enhancement method integrating neural homomorphic synthesis and complex spectral masking. Specifically, we use a shared-encoder and multi-decoder neural network architecture. For the neural homomorphic synthesis, the speech signal is separated into excitation and vocal tract components through liftering the cepstrum, two DNN decoders are applied to estimate the target components independently, and the denoised speech is synthesized by the estimated minimum-phase signal and the noisy phase. For the spectral masking, another DNN decoder is adopted to estimate the complex mask of the target spectrum, and the denoised speech spectrum is obtained by masking the noisy spectrum. The two branches respectively estimate speech signals, and the final enhanced speech is obtained by merging the two branches of estimated speech. Experimental results on two popular datasets show that the proposed method achieves state-of-the-art performance in most evaluation metrics, with only 920K model parameters.
+        <div style="font-size: medium;">
+            Most deep neural network-based speech enhancement methods typically operate in the frequency domain,
+            particularly upon complex or magnitude spectrograms, without directly processing phase spectra. This paper
+            introduces a novel speech enhancement approach that simultaneously estimates clean phase and magnitude and
+            employs the source-filter model. Specifically, the time-domain signal is first transformed into the cepstral
+            domain via a real cepstrum analysis system, then decomposed into the excitation and vocal tract via a neural
+            lifter. The phase is estimated by a neural network trained with a phase-aware loss function and a phase
+            discriminator, meanwhile, the magnitude is estimated by neural homomorphic synthesis. Experiments on
+            VoiceBank+DEMAND and DNSChallenge2021 indicate that the proposed method surpasses previous methods based on
+            neural homomorphic synthesis, with additional ablative experiments providing a more comprehensive analysis
+            of its effectiveness.
         </div>
-    </br>
+        </br>
         <h4> Datasets </h4>
         <div style="font-size: medium;">
-            <li>The <a href="https://datashare.ed.ac.uk/handle/10283/2791"> VoiceBank+DEMAND </a> and the <a href="https://github.com/microsoft/DNS-Challenge/"> DNS-Challenge </a> datasets are used for demo. </li>
-            <li> Audio samples of the two test sets we processed are available at the repository (<a href="https://github.com/jiang-wenbin/NHS-SM-SE/tree/main/samples/voicebank">voicebank</a>, <a href="https://github.com/jiang-wenbin/NHS-SM-SE/tree/main/samples/dns2020">dns2020</a>).</li>
+            <li>The <a href="https://datashare.ed.ac.uk/handle/10283/2791"> VoiceBank+DEMAND </a> and the <a
+                    href="https://github.com/microsoft/DNS-Challenge/"> DNS-Challenge </a> datasets are used for demo.
+            </li>
         </div>
-    </br>
+        </br>
         <h4> Compared methods </h4>
         <div style="font-size: medium;">
-            <li>DEMUCS: <a href="https://github.com/facebookresearch/denoiser">Real Time Speech Enhancement in the Waveform Domain</a></li>
-            <li><a href="https://github.com/speechbrain/speechbrain/tree/develop/recipes/Voicebank/enhance/MetricGAN">MetricGAN+: An Improved Version of MetricGAN for Speech Enhancement</a></li>
-            <li><a href="https://github.com/asteroid-team/asteroid/blob/master/asteroid/masknn/recurrent.py">DCCRN: Deep Complex Convolution Recurrent Network for Phase-Aware Speech Enhancement</a></li>
-            <li><a href="https://github.com/yuguochencuc/DB-AIAT">DB-AIAT: Dual-branch Attention-In-Attention Transformer for Single-channel Speech Enhancement</a></li>
-            <li>NSNet2: <a href="https://github.com/microsoft/DNS-Challenge/tree/master/NSNet2-baseline">Noise Suppression Net 2 (NSNet2) baseline</a> </li>
-            <li><a href="https://github.com/hit-thusz-RookieCJ/FullSubNet-plus">FullSubNet+: Channel Attention FullSubNet with Complex Spectrograms for Speech Enhancement</a></li>
-            <li><a href="https://github.com/alibabasglab/FRCRN">FRCRN: Boosting Feature Representation using Frequency Recurrence for Monaural Speech Enhancement</a></li>
+            <li>DEMUCS: <a href="https://github.com/facebookresearch/denoiser">Real Time Speech Enhancement in the
+                    Waveform Domain</a></li>
+            <li><a href="https://github.com/speechbrain/speechbrain/tree/develop/recipes/Voicebank/enhance/MetricGAN">MetricGAN+:
+                    An Improved Version of MetricGAN for Speech Enhancement</a></li>
+            <li><a href="https://github.com/asteroid-team/asteroid/blob/master/asteroid/masknn/recurrent.py">DCCRN: Deep
+                    Complex Convolution Recurrent Network for Phase-Aware Speech Enhancement</a></li>
+            <li><a href="https://github.com/yuguochencuc/DB-AIAT">DB-AIAT: Dual-branch Attention-In-Attention
+                    Transformer for Single-channel Speech Enhancement</a></li>
+            <li>NSNet2: <a href="https://github.com/microsoft/DNS-Challenge/tree/master/NSNet2-baseline">Noise
+                    Suppression Net 2 (NSNet2) baseline</a> </li>
+            <li><a href="https://github.com/hit-thusz-RookieCJ/FullSubNet-plus">FullSubNet+: Channel Attention
+                    FullSubNet with Complex Spectrograms for Speech Enhancement</a></li>
+            <li><a href="https://github.com/alibabasglab/FRCRN">FRCRN: Boosting Feature Representation using Frequency
+                    Recurrence for Monaural Speech Enhancement</a></li>
         </div>
-    </br>
+        </br>
         <h4> Audio Samples </h4>
         <hr class="hr_line">
         <h3>VoiceBank+DEMAND</h3>
@@ -50,78 +68,166 @@
                     <th>p257_024(bus)</th>
                     <th>p257_048(cafe)</th>
                     <th>p232_393(office)</th>
-                    <th>p232_409(psquare)</th>                    
+                    <th>p232_409(psquare)</th>
                 </tr>
             </thead>
             <tbody>
-                <tr> <td> Clean </td>
-                <td><audio controls=""><source src="samples/Clean/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/p232_409.wav"></audio></td>
+                <tr>
+                    <td> Clean </td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/p232_409.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> Noisy </td>
-                <td><audio controls=""><source src="samples/Noisy/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/p232_409.wav"></audio></td>
+                <tr>
+                    <td> Noisy </td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/p232_409.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> DEMUCS </td>
-                <td><audio controls=""><source src="samples/DEMUCS/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/p232_409.wav"></audio></td>
+                <tr>
+                    <td> DEMUCS </td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/p232_409.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> MetricGAN+ </td>
-                <td><audio controls=""><source src="samples/MetricGAN+/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/MetricGAN+/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/MetricGAN+/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/MetricGAN+/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/MetricGAN+/p232_409.wav"></audio></td>
+                <tr>
+                    <td> MetricGAN+ </td>
+                    <td><audio controls="">
+                            <source src="samples/MetricGAN+/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/MetricGAN+/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/MetricGAN+/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/MetricGAN+/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/MetricGAN+/p232_409.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> DCCRN </td>
-                <td><audio controls=""><source src="samples/DCCRN/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DCCRN/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DCCRN/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DCCRN/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DCCRN/p232_409.wav"></audio></td>
+                <tr>
+                    <td> DCCRN </td>
+                    <td><audio controls="">
+                            <source src="samples/DCCRN/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DCCRN/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DCCRN/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DCCRN/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DCCRN/p232_409.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> DB-AIAT </td>
-                <td><audio controls=""><source src="samples/DB-AIAT/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DB-AIAT/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DB-AIAT/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DB-AIAT/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DB-AIAT/p232_409.wav"></audio></td>
+                <tr>
+                    <td> DB-AIAT </td>
+                    <td><audio controls="">
+                            <source src="samples/DB-AIAT/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DB-AIAT/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DB-AIAT/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DB-AIAT/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DB-AIAT/p232_409.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> FRCRN </td>
-                <td><audio controls=""><source src="samples/FRCRN/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FRCRN/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FRCRN/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FRCRN/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FRCRN/p232_409.wav"></audio></td>
+                <tr>
+                    <td> FRCRN </td>
+                    <td><audio controls="">
+                            <source src="samples/FRCRN/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FRCRN/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FRCRN/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FRCRN/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FRCRN/p232_409.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> Ours </td>
-                <td><audio controls=""><source src="samples/Ours/p232_093.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/p257_024.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/p257_048.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/p232_393.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/p232_409.wav"></audio></td>
+                <tr>
+                    <td> Ours </td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/p232_093.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/p257_024.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/p257_048.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/p232_393.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/p232_409.wav">
+                        </audio></td>
                 </tr>
             </tbody>
         </table>
 
         <h4>Spectrogram of the samples in first column </h4>
         <img src="img/p232_093.png" class="container">
-    </br>
-    </br>
+        </br>
+        </br>
         <!-- <div style="font-size: medium;" class="color_fade"> Note: although the NHS-SE obtained the highest PESQ and eSTOI scores, there is some artificial noise in the enhanced speech. </div> -->
         <hr class="hr_line">
         <!-- <h4>More Compact Model</h4> -->
         <h3>DNS-Challenge</h3>
-        
+
         <table class="table">
             <thead>
                 <tr>
@@ -134,55 +240,121 @@
                 </tr>
             </thead>
             <tbody>
-                <tr> <td> Clean </td>
-                <td><audio controls=""><source src="samples/Clean/no_reverb_fileid_80.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/no_reverb_fileid_220.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/no_reverb_fileid_238.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/with_reverb_fileid_66.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Clean/with_reverb_fileid_102.wav"></audio></td>
+                <tr>
+                    <td> Clean </td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/no_reverb_fileid_80.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/no_reverb_fileid_220.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/no_reverb_fileid_238.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/with_reverb_fileid_66.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Clean/with_reverb_fileid_102.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> Noisy </td>
-                <td><audio controls=""><source src="samples/Noisy/no_reverb_fileid_80.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/no_reverb_fileid_220.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/no_reverb_fileid_238.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/with_reverb_fileid_66.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Noisy/with_reverb_fileid_102.wav"></audio></td>
+                <tr>
+                    <td> Noisy </td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/no_reverb_fileid_80.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/no_reverb_fileid_220.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/no_reverb_fileid_238.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/with_reverb_fileid_66.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Noisy/with_reverb_fileid_102.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> NSNet2 </td>
-                <td><audio controls=""><source src="samples/NSNet2/no_reverb_fileid_80.wav"></audio></td>
-                <td><audio controls=""><source src="samples/NSNet2/no_reverb_fileid_220.wav"></audio></td>
-                <td><audio controls=""><source src="samples/NSNet2/no_reverb_fileid_238.wav"></audio></td>
-                <td><audio controls=""><source src="samples/NSNet2/with_reverb_fileid_66.wav"></audio></td>
-                <td><audio controls=""><source src="samples/NSNet2/with_reverb_fileid_102.wav"></audio></td>
+                <tr>
+                    <td> NSNet2 </td>
+                    <td><audio controls="">
+                            <source src="samples/NSNet2/no_reverb_fileid_80.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/NSNet2/no_reverb_fileid_220.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/NSNet2/no_reverb_fileid_238.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/NSNet2/with_reverb_fileid_66.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/NSNet2/with_reverb_fileid_102.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> DEMUCS </td>
-                <td><audio controls=""><source src="samples/DEMUCS/no_reverb_fileid_80.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/no_reverb_fileid_220.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/no_reverb_fileid_238.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/with_reverb_fileid_66.wav"></audio></td>
-                <td><audio controls=""><source src="samples/DEMUCS/with_reverb_fileid_102.wav"></audio></td>
+                <tr>
+                    <td> DEMUCS </td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/no_reverb_fileid_80.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/no_reverb_fileid_220.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/no_reverb_fileid_238.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/with_reverb_fileid_66.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/DEMUCS/with_reverb_fileid_102.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> FullSubNet+ </td>
-                <td><audio controls=""><source src="samples/FullSubNet+/no_reverb_fileid_80.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FullSubNet+/no_reverb_fileid_220.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FullSubNet+/no_reverb_fileid_238.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FullSubNet+/with_reverb_fileid_66.wav"></audio></td>
-                <td><audio controls=""><source src="samples/FullSubNet+/with_reverb_fileid_102.wav"></audio></td>
+                <tr>
+                    <td> FullSubNet+ </td>
+                    <td><audio controls="">
+                            <source src="samples/FullSubNet+/no_reverb_fileid_80.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FullSubNet+/no_reverb_fileid_220.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FullSubNet+/no_reverb_fileid_238.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FullSubNet+/with_reverb_fileid_66.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/FullSubNet+/with_reverb_fileid_102.wav">
+                        </audio></td>
                 </tr>
-                <tr> <td> Ours </td>
-                <td><audio controls=""><source src="samples/Ours/no_reverb_fileid_80.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/no_reverb_fileid_220.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/no_reverb_fileid_238.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/with_reverb_fileid_66.wav"></audio></td>
-                <td><audio controls=""><source src="samples/Ours/with_reverb_fileid_102.wav"></audio></td>
+                <tr>
+                    <td> Ours </td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/no_reverb_fileid_80.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/no_reverb_fileid_220.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/no_reverb_fileid_238.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/with_reverb_fileid_66.wav">
+                        </audio></td>
+                    <td><audio controls="">
+                            <source src="samples/Ours/with_reverb_fileid_102.wav">
+                        </audio></td>
                 </tr>
             </tbody>
-        </table>        
+        </table>
         <h4>Spectrogram of the samples in first column </h4>
         <img src="img/no_reverb_fileid_80.png" class="container">
-        <!-- <hr class="hr_line"> -->        
+        <!-- <hr class="hr_line"> -->
 
-        <div class="row"> &nbsp; </div> <br/>
+        <div class="row"> &nbsp; </div> <br />
 
 
     </div>
